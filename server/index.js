@@ -1,6 +1,7 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 
 const knex = require('knex')({
 	client: 'mysql',
@@ -121,7 +122,7 @@ const resolvers = {
 	Cart: {
 		user: async (parent, args) => { console.log('parent', parent); console.log('args', args); return await knex.select().from('users').where({ id: parent.user_id }).first() },
 		products: async (parent, args) => (await knex.raw(
-				`select products.* from (SELECT carts.user_id, cart_product.product_id
+			`select products.* from (SELECT carts.user_id, cart_product.product_id
 				FROM carts INNER JOIN cart_product ON carts.id = cart_product.cart_id WHERE carts.id = ${parent.id}) as wow
 				INNER JOIN products ON wow.product_id = products.id`))[0],
 	},
@@ -197,16 +198,33 @@ const server = new ApolloServer({
 	resolvers,
 });
 
+
+var allowCrossDomain = function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+	// intercept OPTIONS method
+	if ('OPTIONS' == req.method) {
+		res.send(200);
+	}
+	else {
+		next();
+	}
+};
+
 const app = express();
 app.use(express.static('build'));
+app.use(cors());
+app.use(allowCrossDomain);
 
 server.applyMiddleware({
 	app,
 	path: '/api'
 });
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get('/', function (req, res) {
+	res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 let port = 4000;

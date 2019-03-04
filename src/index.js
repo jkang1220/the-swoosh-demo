@@ -2,5 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from "apollo-boost";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const client = new ApolloClient({
+	uri: "https://the-swoosh-demo.herokuapp.com/api",
+	credentials: 'include'
+});
+
+ReactDOM.render(
+	<ApolloProvider client={client}>
+		<App />
+	</ApolloProvider>,
+	document.getElementById('root')
+);
