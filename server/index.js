@@ -1,7 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const path = require('path');
 const express = require('express');
-const cors = require('cors');
 
 const knex = require('knex')({
 	client: 'mysql',
@@ -198,29 +197,12 @@ const server = new ApolloServer({
 	resolvers,
 });
 
-
-var allowCrossDomain = function (req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-	// intercept OPTIONS method
-	if ('OPTIONS' == req.method) {
-		res.send(200);
-	}
-	else {
-		next();
-	}
-};
-
 const app = express();
-app.use(express.static('build'));
-app.use(cors());
-app.use(allowCrossDomain);
 
 server.applyMiddleware({
 	app,
-	path: '/api'
+	path: '/api',
+	cors: true,
 });
 
 app.get('/', function (req, res) {

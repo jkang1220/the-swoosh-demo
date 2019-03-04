@@ -6,8 +6,11 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-	uri: "https://the-swoosh-demo.herokuapp.com/api",
-	credentials: 'include'
+	uri: "http://localhost:4000/api",
+	fetchOptions: {
+		credentials: 'include',
+		mode: 'cors',
+	}
 });
 
 ReactDOM.render(
