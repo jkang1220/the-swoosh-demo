@@ -1,4 +1,6 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-express');
+const path = require('path');
+const express = require('express');
 
 const knex = require('knex')({
 	client: 'mysql',
@@ -118,18 +120,10 @@ const resolvers = {
 	},
 	Cart: {
 		user: async (parent, args) => { console.log('parent', parent); console.log('args', args); return await knex.select().from('users').where({ id: parent.user_id }).first() },
-		products: async (parent, args) => {
-			console.log('parent', parent);
-			console.log('args', args)
-			console.log((await knex.raw(
+		products: async (parent, args) => (await knex.raw(
 				`select products.* from (SELECT carts.user_id, cart_product.product_id
 				FROM carts INNER JOIN cart_product ON carts.id = cart_product.cart_id WHERE carts.id = ${parent.id}) as wow
-				INNER JOIN products ON wow.product_id = products.id`))[0]);
-			return (await knex.raw(
-				`select products.* from (SELECT carts.user_id, cart_product.product_id
-				FROM carts INNER JOIN cart_product ON carts.id = cart_product.cart_id WHERE carts.id = ${parent.id}) as wow
-				INNER JOIN products ON wow.product_id = products.id`))[0];
-		},
+				INNER JOIN products ON wow.product_id = products.id`))[0],
 	},
 	Query: {
 		getAllUsers: async parent => await knex.select().from('users'),
@@ -203,6 +197,17 @@ const server = new ApolloServer({
 	resolvers,
 });
 
-server.listen().then(({ url }) => {
-	console.log(`🚀 Apollo Server ready at ${url}`);
+const app = express();
+app.use(express.static('build'));
+
+server.applyMiddleware({
+	app,
+	path: '/api'
 });
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+let port = 4000;
+app.listen(port, () => console.log(`Listening on port ${port}`))

@@ -3,21 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5",
     "apollo-server": "^2.4.6",
+    "apollo-server-express": "^2.4.8",
+    "express": "^4.16.4",
     "graphql": "^14.1.1",
     "knex": "^0.16.3",
     "mysql": "^2.16.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-scripts": "2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "server-dev": "nodemon server/index.js",
-    "build-db": "mysql -u root > swoosh.sql"
+    "build-db": "mysql -u root < swoosh.sql"
   },
   "eslintConfig": {
     "extends": "react-app"
