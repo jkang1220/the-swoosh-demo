@@ -1,13 +1,13 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import CartGrid from './CartGrid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorHandlingComponent from './ErrorHandlingComponent';
 import Typography from '@material-ui/core/Typography';
 import id from '../util';
+import CartGrid from './CartGrid';
+import ErrorHandlingComponent from './ErrorHandlingComponent';
 
 const styles = (theme) => ({
 	root: {
@@ -45,6 +45,7 @@ function CartPage(props) {
 					{({ loading, error, data, refetch }) => {
 						if (loading) return <CircularProgress />;
 						if (error) return <ErrorHandlingComponent message={error.message} />;
+						console.log('GET_PRODUCTS_IN_USER_CART_QUERY was made!');
 						return (
 							<React.Fragment>
 								<Typography variant="h4" component="h4">

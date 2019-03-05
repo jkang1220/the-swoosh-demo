@@ -1,11 +1,12 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import UserOrdersGrid from './UserOrdersGrid';
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { CircularProgress } from '@material-ui/core';
-import ErrorHandlingComponent from './ErrorHandlingComponent';
 import id from '../util';
+import UserOrdersGrid from './UserOrdersGrid';
+import ErrorHandlingComponent from './ErrorHandlingComponent';
 
 const GET_USER_ORDERS_QUERY = gql`
 query {
@@ -28,20 +29,23 @@ query {
 
 const OrdersPage = () => {
 	return (
-		<Query query={GET_USER_ORDERS_QUERY} fetchPolicy={'cache-first'}>
-			{({ loading, error, data }) => {
-				if (loading) return <CircularProgress />;
-				if (error) return <ErrorHandlingComponent message={error.message} />;
-				return (
-					<React.Fragment>
-						<Typography variant="h4" component="h4">
-							My Orders
-						</Typography>
-						<UserOrdersGrid orders={data.getOrdersByUserId} />
-					</React.Fragment>
-				);
-			}}
-		</Query>
+		<Paper>
+			<Query query={GET_USER_ORDERS_QUERY} fetchPolicy={'cache-first'}>
+				{({ loading, error, data }) => {
+					if (loading) return <CircularProgress />;
+					if (error) return <ErrorHandlingComponent message={error.message} />;
+					console.log('GET_USER_ORDERS_QUERY was Made!!');
+					return (
+						<React.Fragment>
+							<Typography variant="h4" component="h4">
+								My Orders
+							</Typography>
+							<UserOrdersGrid orders={data.getOrdersByUserId} />
+						</React.Fragment>
+					);
+				}}
+			</Query>
+		</Paper>
 	);
 };
 

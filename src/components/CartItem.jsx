@@ -1,17 +1,16 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { Mutation } from 'react-apollo';
 import Card from '@material-ui/core/Card';
 import red from '@material-ui/core/colors/red';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-
 import TableFooter from '@material-ui/core/TableFooter';
 import { withStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import gql from 'graphql-tag';
-import { Mutation } from 'react-apollo';
 
 const styles = (theme) => ({
 	card: {

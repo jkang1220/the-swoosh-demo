@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import TableFooter from '@material-ui/core/TableFooter';
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 import { Mutation } from 'react-apollo';
 import id from '../util';
 

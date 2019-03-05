@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import Card from '@material-ui/core/Card';
 import red from '@material-ui/core/colors/red';
 import Table from '@material-ui/core/Table';
@@ -6,11 +7,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 
 const styles = (theme) => ({
 	card: {
-		width: 450
+		width: 350
 	},
 	media: {
 		height: 0,
@@ -75,7 +75,7 @@ const OrderTile = (props) => {
 							<TableCell>
 								<b>Items Ordered:</b>{' '}
 							</TableCell>
-							<td>
+							<TableCell>
 								{products.map((product, i) => (
 									<div key={i} className="order-tile-products">
 										<p>Name: {product.name}</p>
@@ -87,7 +87,7 @@ const OrderTile = (props) => {
 										/>
 									</div>
 								))}
-							</td>
+							</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>

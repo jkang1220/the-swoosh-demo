@@ -1,13 +1,13 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import ProductGrid from './ProductGrid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorHandlingComponent from './ErrorHandlingComponent';
 import id from '../util';
+import ProductGrid from './ProductGrid';
+import ErrorHandlingComponent from './ErrorHandlingComponent';
 
 const styles = (theme) => ({
 	root: {
@@ -47,6 +47,7 @@ function ProductPage(props) {
 					{({ loading, error, data }) => {
 						if (loading) return <CircularProgress />;
 						if (error) return <ErrorHandlingComponent message={error.message} />;
+						console.log('GET_ALL_PRODUCTS_QUERY was Made!!');
 						return (
 							<React.Fragment>
 								<Typography variant="h4" component="h4">

@@ -1,13 +1,13 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import ProfileTable from './ProfileTable';
 import { CircularProgress } from '@material-ui/core';
-import ErrorHandlingComponent from './ErrorHandlingComponent';
 import id from '../util';
+import ProfileTable from './ProfileTable';
+import ErrorHandlingComponent from './ErrorHandlingComponent';
 
 const styles = (theme) => ({
 	root: {
