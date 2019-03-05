@@ -17,16 +17,16 @@ function TabContainer(props) {
 	);
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
 	root: {
 		flexGrow: 1,
-		backgroundColor: theme.palette.background.paper,
-	},
+		backgroundColor: theme.palette.background.paper
+	}
 });
 
 class TopNavBar extends React.Component {
 	state = {
-		value: 0,
+		value: 0
 	};
 
 	handleChange = (event, value) => {
@@ -40,21 +40,35 @@ class TopNavBar extends React.Component {
 		return (
 			<div className={classes.root}>
 				<AppBar position="static">
-					<Tabs value={value}
-						onChange={this.handleChange}
-						variant="fullWidth"
-					>
+					<Tabs value={value} onChange={this.handleChange} variant="fullWidth">
 						<Tab label="Profile" />
 						<Tab label="My Orders" />
 						<Tab label="Buy" />
 						<Tab label="My Cart" />
 					</Tabs>
 				</AppBar>
-				{value === 0 && <TabContainer><ProfilePage /></TabContainer>}
-				{value === 1 && <TabContainer><OrdersPage /></TabContainer>}
-				{value === 2 && <TabContainer><ProductPage /></TabContainer>}
-				{value === 3 && <TabContainer><CartPage /></TabContainer>}
-			</div>);
+				{value === 0 && (
+					<TabContainer>
+						<ProfilePage />
+					</TabContainer>
+				)}
+				{value === 1 && (
+					<TabContainer>
+						<OrdersPage />
+					</TabContainer>
+				)}
+				{value === 2 && (
+					<TabContainer>
+						<ProductPage />
+					</TabContainer>
+				)}
+				{value === 3 && (
+					<TabContainer>
+						<CartPage />
+					</TabContainer>
+				)}
+			</div>
+		);
 	}
 }
 

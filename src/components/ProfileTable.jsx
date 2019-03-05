@@ -10,39 +10,39 @@ import TableFooter from '@material-ui/core/TableFooter';
 const ProfileTable = ({ userData }) => {
 	const { username, first_name, last_name, email, address } = userData;
 	const properties = [
-		{ 'Username': username },
+		{ Username: username },
 		{ 'First Name': first_name },
 		{ 'Last Name': last_name },
-		{ 'Email': email },
-		{ 'Address': address }
+		{ Email: email },
+		{ Address: address }
 	];
 
 	return (
 		<Table>
 			<TableHead>
-				<TableRow>
-				</TableRow>
+				<TableRow />
 			</TableHead>
 			<TableBody>
 				{properties.map((item, i) => {
-					return (<TableRow key={i}>
-						<TableCell align="center">
-							<Typography variant="h6" component="h6" inline={true}>
-								<b> {`${Object.keys(item)}: `}</b>
-							</Typography>
-							<Typography variant="h6" component="h6" inline={true}>
-								{item[Object.keys(item)]}
-							</Typography>
-						</TableCell>
-					</TableRow>)
+					return (
+						<TableRow key={i}>
+							<TableCell align="center">
+								<Typography variant="h6" component="h6" inline={true}>
+									<b> {`${Object.keys(item)}: `}</b>
+								</Typography>
+								<Typography variant="h6" component="h6" inline={true}>
+									{item[Object.keys(item)]}
+								</Typography>
+							</TableCell>
+						</TableRow>
+					);
 				})}
 			</TableBody>
 			<TableFooter>
-				<TableRow>
-				</TableRow>
+				<TableRow />
 			</TableFooter>
 		</Table>
-	)
+	);
 };
 
-export default ProfileTable
+export default ProfileTable;

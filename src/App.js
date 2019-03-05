@@ -10,7 +10,7 @@ class App extends Component {
 			<div className="App">
 				<Typography variant="h2" component="h2" paragraph={true}>
 					The Swoosh Store
-        		</Typography>
+				</Typography>
 				<TopNavBar />
 			</div>
 		);

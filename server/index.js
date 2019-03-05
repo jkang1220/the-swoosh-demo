@@ -177,12 +177,13 @@ const resolvers = {
 			return await knex.select().from('products').where({ id: args.input.product_id }).first();
 		},
 		RemoveItemFromCart: async (parent, args) => {
-			const removedItem = await knex('cart_product')
+			await knex('cart_product')
 				.where({
 					cart_id: args.input.cart_id,
 					product_id: args.input.product_id,
 				}).del();
-			return removedItem;
+
+			return args.input.product_id;
 		},
 		AddProductToCatalog: async (parent, args) => {
 			const addedProductId = (await knex('products')
