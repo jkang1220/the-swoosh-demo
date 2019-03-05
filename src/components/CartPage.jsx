@@ -35,6 +35,11 @@ query {
 }
 `;
 
+// The Query component is an example of a React component that uses the render prop pattern
+// just pass a GraphQL query as a prop
+// and provide a function to the children that tells React what to render
+// When React mounts a Query component, Apollo Client automatically fires off your query.
+
 function CartPage(props) {
 	const { classes } = props;
 
@@ -45,7 +50,6 @@ function CartPage(props) {
 					{({ loading, error, data, refetch }) => {
 						if (loading) return <CircularProgress />;
 						if (error) return <ErrorHandlingComponent message={error.message} />;
-						console.log('GET_PRODUCTS_IN_USER_CART_QUERY was made!');
 						return (
 							<React.Fragment>
 								<Typography variant="h4" component="h4">

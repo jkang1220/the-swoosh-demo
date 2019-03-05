@@ -70,6 +70,9 @@ const CartItem = ({ classes, product, user_id, cart_id, refetch }) => {
 					<TableFooter>
 						<TableRow>
 							<TableCell>
+								{/* For a mutation you just need to pass in the necessary variables, and the gql query */}
+								{/* The Mutation render prop function that you are passing in has an function as an argument that will
+								call the actual mutation*/}
 								<Mutation
 									mutation={REMOVE_ITEM_FROM_USER_CART}
 									variables={{ product_id: id, user_id, id }}

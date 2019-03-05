@@ -1,7 +1,7 @@
 import React from 'react';
 import CartItem from './CartItem';
 
-function ProductGrid({ products, user_id, cart_id, refetch }) {
+function CartGrid({ products, user_id, cart_id, refetch }) {
 	return (
 		<div className="flex-container">
 			{products.map((product, i) => (
@@ -17,4 +17,4 @@ function ProductGrid({ products, user_id, cart_id, refetch }) {
 	);
 }
 
-export default ProductGrid;
+export default CartGrid;

@@ -121,9 +121,7 @@ class ProductTile extends React.Component {
 											const { getCartByUserId } = cache.readQuery({
 												query: GET_PRODUCTS_IN_USER_CART_QUERY
 											});
-											const updatedProducts = getCartByUserId.products.concat(
-												[ AddItemToCart ]
-											);
+											//SHOW APOLLO DEV TOOLS CACHE
 											cache.writeQuery({
 												query: GET_PRODUCTS_IN_USER_CART_QUERY,
 												data: {

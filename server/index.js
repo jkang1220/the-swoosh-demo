@@ -165,7 +165,6 @@ const resolvers = {
 		},
 		AddProductsToOrder: async (parent, args) => {
 			const productIds = args.input.map((row) => row.product_id);
-
 			args.input.forEach(async (productToOrderRelationship) => {
 				await knex('order_product').insert(productToOrderRelationship);
 			});
