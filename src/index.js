@@ -10,7 +10,8 @@ const client = new ApolloClient({
 	fetchOptions: {
 		credentials: 'include',
 		mode: 'cors',
-	}
+	},
+	connectToDevTools: true
 });
 
 ReactDOM.render(

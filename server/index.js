@@ -9,6 +9,13 @@ const knex = require('knex')({
 		user: 'root',
 		password: '',
 		database: 'jike',
+		timezone: 'UTC',
+		typeCast: function (field, next) {
+			if (field.type == 'DATETIME') {
+				return moment(field.string()).format('YYYY-MM-DD HH:mm:ss');
+			}
+			return next();
+		}
 	},
 });
 

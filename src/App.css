@@ -31,3 +31,28 @@
     transform: rotate(360deg);
   }
 }
+
+.profile-avatar {
+  height: 200px;
+  width: 200px;
+}
+
+.flex-container {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.order-tile {
+	margin: 0 20px;
+	padding: 10px;
+}
+
+.order-tile-product-img {
+  height: 100px;
+  width: 100px;
+}
+
+.order-tile-products {
+	padding-right: 20px;
+}
