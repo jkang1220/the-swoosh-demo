@@ -56,3 +56,9 @@
 .order-tile-products {
 	padding-right: 20px;
 }
+
+.product-image {
+  height: 200px;
+  width: 200px;
+  margin: auto auto;
+}

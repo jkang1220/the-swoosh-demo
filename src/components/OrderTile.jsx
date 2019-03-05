@@ -45,29 +45,29 @@ const OrderTile = (props) => {
 				<Table>
 					<TableBody>
 						<TableRow>
-							<TableCell>Order On: </TableCell>
+							<TableCell><b>Order On:</b>  </TableCell>
 							<TableCell>{moment.unix(order_date / 1000).format('MMM-DD-YYYY')}</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>Paid On: </TableCell>
+							<TableCell><b>Paid On: </b> </TableCell>
 							<TableCell>{moment.unix(payment_date / 1000).format('MMM-DD-YYYY')}</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>Total: </TableCell>
+							<TableCell><b>Total:</b> </TableCell>
 							<TableCell>{total}</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>Order Tracking Number: </TableCell>
+							<TableCell><b>Order Tracking Number:</b>  </TableCell>
 							<TableCell>{order_tracking_number}</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>Items Ordered: </TableCell>
+							<TableCell><b>Items Ordered:</b>  </TableCell>
 							<td>
 								{products.map((product, i) =>
 									<div key={i} className="order-tile-products">
 										<p>Name: {product.name}</p>
 										<p>Retail Price: ${product.retail_price}</p>
-										<img src={product.img} className="order-tile-product-img" />
+										<img alt={product.name} src={product.img} className="order-tile-product-img" />
 									</div>)
 								}
 							</td>

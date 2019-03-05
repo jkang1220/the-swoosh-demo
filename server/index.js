@@ -93,7 +93,7 @@ const typeDefs = gql`
 	input orderProductInput {
 		order_id : Int!
 		product_id: Int!
-  }
+  	}
 
   type Query {
 		getAllUsers: [User]!
@@ -126,7 +126,7 @@ const resolvers = {
 		products: async (parent, args, context, info) => await knex.select('*').from('products').join('order_product', 'products.id', 'order_product.product_id').where('order_product.order_id', '=', parent.id),
 	},
 	Cart: {
-		user: async (parent, args) => { console.log('parent', parent); console.log('args', args); return await knex.select().from('users').where({ id: parent.user_id }).first() },
+		user: async (parent, args) => await knex.select().from('users').where({ id: parent.user_id }).first(),
 		products: async (parent, args) => (await knex.raw(
 			`select products.* from (SELECT carts.user_id, cart_product.product_id
 				FROM carts INNER JOIN cart_product ON carts.id = cart_product.cart_id WHERE carts.id = ${parent.id}) as wow

@@ -5,8 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ProfilePage from './ProfilePage';
-import StorePage from './StorePage';
+import ProductPage from './ProductPage';
 import OrdersPage from './OrdersPage';
+import CartPage from './CartPage';
 
 function TabContainer(props) {
 	return (
@@ -46,11 +47,13 @@ class TopNavBar extends React.Component {
 						<Tab label="Profile" />
 						<Tab label="My Orders" />
 						<Tab label="Buy" />
+						<Tab label="My Cart" />
 					</Tabs>
 				</AppBar>
 				{value === 0 && <TabContainer><ProfilePage /></TabContainer>}
 				{value === 1 && <TabContainer><OrdersPage /></TabContainer>}
-				{value === 2 && <TabContainer><StorePage /></TabContainer>}
+				{value === 2 && <TabContainer><ProductPage /></TabContainer>}
+				{value === 3 && <TabContainer><CartPage /></TabContainer>}
 			</div>);
 	}
 }

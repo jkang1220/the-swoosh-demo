@@ -27,10 +27,10 @@ const ProfileTable = ({ userData }) => {
 				{properties.map((item, i) => {
 					return (<TableRow key={i}>
 						<TableCell align="center">
-							<Typography variant="h5" component="h5" inline={true}>
-								{`${Object.keys(item)}: `}
+							<Typography variant="h6" component="h6" inline={true}>
+								<b> {`${Object.keys(item)}: `}</b>
 							</Typography>
-							<Typography variant="h5" component="h5" inline={true}>
+							<Typography variant="h6" component="h6" inline={true}>
 								{item[Object.keys(item)]}
 							</Typography>
 						</TableCell>

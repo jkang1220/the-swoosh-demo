@@ -3,11 +3,13 @@ import Typography from '@material-ui/core/Typography';
 import UserOrdersGrid from './UserOrdersGrid';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo'
+import { CircularProgress } from '@material-ui/core';
+import ErrorHandlingComponent from './ErrorHandlingComponent';
+import id from '../util';
 
-
-const USER_ORDERS_QUERY = gql`
+const GET_USER_ORDERS_QUERY = gql`
 query {
-  getOrdersByUserId(id:1) {
+  getOrdersByUserId(id:${id}) {
 		id
     total
     order_date
@@ -27,13 +29,12 @@ query {
 const OrdersPage = () => {
 	return (
 		<Query
-			query={USER_ORDERS_QUERY}
+			query={GET_USER_ORDERS_QUERY}
 			fetchPolicy={'cache-first'}
 		>
 			{({ loading, error, data }) => {
-				if (loading) return <span>Loading...</span>;
-				if (error) return `Error! ${error.message}`;
-				console.log('data', data.getOrdersByUserId);
+				if (loading) return <CircularProgress />;
+				if (error) return <ErrorHandlingComponent message={error.message} />;
 				return (
 					<React.Fragment>
 						<Typography variant="h4" component="h4">
