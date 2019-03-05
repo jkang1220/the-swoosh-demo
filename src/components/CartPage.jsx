@@ -20,6 +20,7 @@ const styles = (theme) => ({
 const GET_PRODUCTS_IN_USER_CART_QUERY = gql`
 query {
   	getCartByUserId(id: ${id}) {
+	  	id
     	products {
       		id
 	 		name
@@ -29,9 +30,6 @@ query {
 		}
     	user {
 	      	id
-	      	cart {
-	        	id
-	      	}
     	}
 	}
 }
@@ -43,8 +41,8 @@ function CartPage(props) {
 	return (
 		<div>
 			<Paper className={classes.root} elevation={1}>
-				<Query query={GET_PRODUCTS_IN_USER_CART_QUERY} fetchPolicy={'cache-first'}>
-					{({ loading, error, data }) => {
+				<Query query={GET_PRODUCTS_IN_USER_CART_QUERY}>
+					{({ loading, error, data, refetch }) => {
 						if (loading) return <CircularProgress />;
 						if (error) return <ErrorHandlingComponent message={error.message} />;
 						return (
@@ -60,7 +58,8 @@ function CartPage(props) {
 								<CartGrid
 									products={data.getCartByUserId.products}
 									user_id={id}
-									cart_id={data.getCartByUserId.user.cart.id}
+									cart_id={data.getCartByUserId.id}
+									refetch={refetch}
 								/>
 							</React.Fragment>
 						);

@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import gql from 'graphql-tag';
-RemoveItemFromCart;
 import { Mutation } from 'react-apollo';
 
 const styles = (theme) => ({
@@ -40,9 +39,9 @@ const styles = (theme) => ({
 	}
 });
 
-const CartItem = ({ classes, product, user_id, cart_id }) => {
+const CartItem = ({ classes, product, user_id, cart_id, refetch }) => {
 	const { id, name, retail_price, img } = product;
-	const ADD_ITEM_TO_USER_CART = gql`
+	const REMOVE_ITEM_FROM_USER_CART = gql`
 		mutation {
 		  RemoveItemFromCart(input: {user_id: ${user_id}, cart_id: ${cart_id}, product_id: ${id} })
 		}
@@ -73,14 +72,17 @@ const CartItem = ({ classes, product, user_id, cart_id }) => {
 						<TableRow>
 							<TableCell>
 								<Mutation
-									mutation={ADD_ITEM_TO_USER_CART}
+									mutation={REMOVE_ITEM_FROM_USER_CART}
 									variables={{ product_id: id, user_id, id }}
 								>
 									{(postMutation) => (
 										<IconButton
 											aria-label="Delete"
 											color="secondary"
-											onClick={postMutation}
+											onClick={() => {
+												postMutation();
+												refetch();
+											}}
 										>
 											<DeleteIcon />
 										</IconButton>

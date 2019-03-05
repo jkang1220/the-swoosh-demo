@@ -11,6 +11,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import TableFooter from '@material-ui/core/TableFooter';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import id from '../util';
 
 const styles = (theme) => ({
 	card: {
@@ -38,6 +39,24 @@ const styles = (theme) => ({
 	}
 });
 
+const GET_PRODUCTS_IN_USER_CART_QUERY = gql`
+query {
+  	getCartByUserId(id: ${id}) {
+	  	id
+    	products {
+      		id
+	 		name
+		  	img
+	      	retail_price
+	      	product_sku
+		}
+    	user {
+	      	id
+    	}
+	}
+}
+`;
+
 class ProductTile extends React.Component {
 	render() {
 		const { classes, product, user_id, cart_id } = this.props;
@@ -45,10 +64,15 @@ class ProductTile extends React.Component {
 
 		const ADD_ITEM_TO_USER_CART = gql`
 		mutation {
-		  AddItemToCart(input: {user_id: ${user_id}, cart_id: ${cart_id}, product_id: ${id} }) {
-		    id
-		    name
-		  }
+			AddItemToCart(input: {user_id: ${user_id}, cart_id: ${cart_id}, product_id: ${id} }) {
+			    id
+			    name
+			    description
+			    retail_price
+			    product_sku
+			    img
+			    stock
+			}
 		}
 	`;
 		return (
@@ -93,6 +117,27 @@ class ProductTile extends React.Component {
 									<Mutation
 										mutation={ADD_ITEM_TO_USER_CART}
 										variables={{ user_id, cart_id, id }}
+										update={(cache, { data: { AddItemToCart } }) => {
+											const { getCartByUserId } = cache.readQuery({
+												query: GET_PRODUCTS_IN_USER_CART_QUERY
+											});
+											const updatedProducts = getCartByUserId.products.concat(
+												[ AddItemToCart ]
+											);
+											cache.writeQuery({
+												query: GET_PRODUCTS_IN_USER_CART_QUERY,
+												data: {
+													getCartByUserId: {
+														id: 1,
+														products: getCartByUserId.products.concat(
+															[ AddItemToCart ]
+														),
+														user: getCartByUserId.user,
+														__typename: 'Cart'
+													}
+												}
+											});
+										}}
 									>
 										{(postMutation) => (
 											<IconButton
